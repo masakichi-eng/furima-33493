@@ -1,24 +1,62 @@
 # README
+## users テーブル
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+| Column        | Type   | Options     |
+| ------------- | ------ | ------------|
+| nick-name     | string | null: false |
+| email         | string | null: false |
+| password      | string | null: false |
+| name-kanji    | string | null: false |
+| name-katakana | string | null: false |
+| birthday      | string | null: false |
 
-Things you may want to cover:
+### Association
+- has_many :items
 
-* Ruby version
+## items テーブル
 
-* System dependencies
+| Column      | Type       | Options     |
+| ------------| -----------| ------------|
+| seller      | string     | null: false |
+| category    | string     | null: false |
+| state       | string     | null: false |
+| burden      | string     | null: false |
+| ship-area   | string     | null: false |
+| ship-day    | string     | null: false |
+| i-name      | string     | null: false |
+| explanation | text       | null: false |
+| price       | string     | null: false |
+| image       |            |             |
+| user        | references |             |
 
-* Configuration
+### Association
+- belongs_to :user
+- has_one :purchase
 
-* Database creation
+## purchase テーブル
 
-* Database initialization
+| Column      | Type       | Options     |
+| ------------| -----------| ------------|
+| card-number | string     | null: false |
+| expiration  | string     | null: false |
+| security    | string     | null: false |
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+### Association
+- belongs_to :items
+- has_one :shipping
 
-* Deployment instructions
+## shipping テーブル
 
-* ...
+| Column      | Type       | Options     |
+| ------------| -----------| ------------|
+| seller      | string     | null: false |
+| category    | string     | null: false |
+| state       | string     | null: false |
+| burden      | string     | null: false |
+| ship-area   | string     | null: false |
+| ship-day    | string     | null: false |
+
+
+### Association
+- belongs_to :purchase
