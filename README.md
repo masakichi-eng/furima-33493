@@ -1,16 +1,16 @@
 # README
 ## users テーブル
 
-| Column             | Type   | Options                  |
-| -------------------| ------ | -------------------------|
-| nickname           | string | null: false              |
-| email              | string | null: false, primary_key |
-| encrypted_password | string | null: false              |
-| sei_kanji          | string | null: false              |
-| mei_kanji          | string | null: false              |
-| sei_katakana       | string | null: false              |
-| mei_katakana       | string | null: false              |
-| birthday           | date   | null: false              |
+| Column             | Type   | Options                   |
+| -------------------| ------ | --------------------------|
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| sei_kanji          | string | null: false               |
+| mei_kanji          | string | null: false               |
+| sei_katakana       | string | null: false               |
+| mei_katakana       | string | null: false               |
+| birthday           | date   | null: false               |
 
 ### Association
 - has_many :items
@@ -25,7 +25,7 @@
 | burden_id     | integer    | null: false      |
 | prefecture_id | integer    | null: false      |
 | ship_day_id   | integer    | null: false      |
-| i_name        | string     | null: false      |
+| name          | string     | null: false      |
 | explanation   | text       | null: false      |
 | price         | integer    | null: false      |
 | user          | references | foreign_key true |
