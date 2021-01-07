@@ -14,7 +14,7 @@
 
 ### Association
 - has_many :items
-- has_one :purchase
+- has_many :purchases
 
 ## items テーブル
 
@@ -28,7 +28,6 @@
 | i_name        | string     | null: false      |
 | explanation   | text       | null: false      |
 | price         | integer    | null: false      |
-| image         | image      | null: false      |
 | user          | references | foreign_key true |
 
 ### Association
@@ -41,7 +40,7 @@
 | --------| -----------| ----------------|
 | user    | references |foreign_key true |
 | item    | references |foreign_key true |
-| sipping | references |foreign_key true |
+
 
 
 ### Association
@@ -51,15 +50,15 @@
 
 ## shipping テーブル
 
-| Column        | Type    | Options     |
-| --------------| --------| ------------|
-| postal        | integer | null: false |
-| prefecture_id | integer | null: false |
-| city          | string  | null: false |
-| address       | string  | null: false |
-| building      | string  |             |
-| phone_number  | string  | null: false |
-
+| Column        | Type       | Options         |
+| --------------| -----------| ----------------|
+| postal        | string     | null: false     |
+| prefecture_id | integer    | null: false     |
+| city          | string     | null: false     |
+| address       | string     | null: false     |
+| building      | string     |                 |
+| phone_number  | string     | null: false     |
+| purchase      | references |foreign_key true |
 
 
 ### Association
