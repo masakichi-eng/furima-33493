@@ -41,7 +41,21 @@ RSpec.describe User, type: :model do
       @user.password = 'b１b１b１'
       @user.password_confirmation = 'b１b１b１'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password 半角で入力してください")
+      expect(@user.errors.full_messages).to include("Password 半角英数混合で入力してください")
+    end
+
+    it 'passwordが英字だけでは登録できないこと' do
+      @user.password = 'abcdef'
+      @user.password_confirmation = 'abcdef'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password 半角英数混合で入力してください")
+    end
+
+    it 'passwordが数字だけでは登録できないこと' do
+      @user.password = '123456'
+      @user.password_confirmation = '123456'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password 半角英数混合で入力してください")
     end
 
     it 'sei_kanjiが空では登録できないこと' do

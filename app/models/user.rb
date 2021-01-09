@@ -6,11 +6,15 @@ class User < ApplicationRecord
 
 with_options presence: true do
   validates :nickname
-  validates :sei_kanji, format: { with: /\A[ぁ-ん一-龥々]+\z/, message: '漢字を入力してください' }
-  validates :mei_kanji, format: { with: /\A[ぁ-ん一-龥々]+\z/, message: '漢字を入力してください' }
-  validates :sei_katakana, format: { with: /\A[ァ-ヶ]+\z/, message: 'カナを入力してください' }
-  validates :mei_katakana, format: { with: /\A[ァ-ヶ]+\z/, message: 'カナを入力してください' }
+  with_options format: { with: /\A[ぁ-ん一-龥々]+\z/, message: '漢字を入力してください' }  do
+    validates :sei_kanji
+    validates :mei_kanji
+  end
+  with_options format: { with: /\A[ァ-ヶ]+\z/, message: 'カナを入力してください' }  do
+    validates :sei_katakana
+    validates :mei_katakana
+  end
   validates :birthday
-  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i, message: '半角で入力してください' }
-end
+  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i, message: '半角英数混合で入力してください' }
+ end
 end
