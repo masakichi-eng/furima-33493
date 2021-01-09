@@ -3,7 +3,7 @@ require 'rails_helper'
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe '#create' do
+  describe '新規登録' do
     before do
       @user = FactoryBot.build(:user)
     end
@@ -111,4 +111,5 @@ RSpec.describe User, type: :model do
       expect(another_user.errors.full_messages).to include('Email has already been taken')
     end
   end
+
 end
