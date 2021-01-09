@@ -10,4 +10,6 @@ class User < ApplicationRecord
   validates :sei_katakana, presence: true, format: { with: /\A[ァ-ヶ]+\z/, message: 'カナを入力してください' }
   validates :mei_katakana, presence: true, format: { with: /\A[ァ-ヶ]+\z/, message: 'カナを入力してください' }
   validates :birthday, presence: true
+  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i, message: '半角で入力してください' }
+  
 end
