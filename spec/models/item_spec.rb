@@ -73,6 +73,18 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include('Price is not a number')
     end
 
+    it '販売価格は英数混合では登録できないこと' do
+      @item.price = '1a1a1a'
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Price is not a number')
+    end
+
+    it '販売価格は英字では登録できないこと' do
+      @item.price = 'aaaaaa'
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Price is not a number')
+    end
+
     it '商品画像を1枚つけることが必須であること' do
       @item.image = nil
       @item.valid?
