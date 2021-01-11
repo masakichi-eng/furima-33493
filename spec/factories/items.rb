@@ -8,7 +8,7 @@ FactoryBot.define do
     explanation { '説明文' }
     price { 500 }
     name { '商品の名前' }
-    # image {'url.jpeg'}
+    
 
     after(:build) do |item|
       item.image.attach(io: File.open('app/assets/images/flag.png'), filename: 'flag.png')
