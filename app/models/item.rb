@@ -18,11 +18,13 @@ class Item < ApplicationRecord
   
   validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
 
-  validates :category_id, numericality: { other_than: 1 }
-  validates :state_id, numericality: { other_than: 1 }
-  validates :burden_id, numericality: { other_than: 1 }
+  with_options numericality: { other_than: 1 } do
+    validates :category_id
+    validates :state_id
+    validates :burden_id
+    validates :ship_day_id
+  end
   validates :prefecture_id, numericality: { other_than: 0 }
-  validates :ship_day_id, numericality: { other_than: 1 }
 
   has_one_attached :image
 end
