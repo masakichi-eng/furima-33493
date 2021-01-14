@@ -3,8 +3,12 @@ require 'rails_helper'
 RSpec.describe PurchaseShipping, type: :model do
     describe '購入情報の保存' do
       before do
-        @purchase_shipping = FactoryBot.build(:purchase_shipping)
+        @user = FactoryBot.create(:user)
+        @item = FactoryBot.create(:item)
+        @purchase_shipping = FactoryBot.build(:purchase_shipping, user_id: @user.id, item_id: @item.id)
+        sleep(1)
       end
+      context "購入情報が保存できる場合" do
       it 'すべての値が正しく入力されていれば保存できること' do
         expect(@purchase_shipping).to be_valid
       end
@@ -12,6 +16,28 @@ RSpec.describe PurchaseShipping, type: :model do
       it '建物名が空でも保存できること' do
         @purchase_shipping.building = nil
         expect(@purchase_shipping).to be_valid
+      end
+     end
+  
+
+
+     context "購入情報が保存できない場合" do
+      it 'user_idが空だと保存できないこと' do
+        @purchase_shipping.user_id = nil
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空だと保存できないこと' do
+        @purchase_shipping.item_id = nil
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Item can't be blank")
+      end
+
+      it 'tokenが空だと保存できないこと' do
+        @purchase_shipping.token = nil
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Token can't be blank")
       end
 
       it '郵便番号が空だと保存できないこと' do
@@ -63,6 +89,6 @@ RSpec.describe PurchaseShipping, type: :model do
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Phone number is invalid.")
       end
-
+    end
     end
   end
