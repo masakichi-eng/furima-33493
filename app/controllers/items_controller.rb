@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new,:edit]
   before_action :find_item, only: [:show,:edit,:update,:destroy]
   before_action :move_to_index, only: [:edit,:destroy]
-  
+ 
   def index
     @items = Item.order("created_at DESC")
   end
@@ -47,12 +47,6 @@ class ItemsController < ApplicationController
       redirect_to root_path
   end
 
-  def move_to_index
-    
-    unless current_user.id == @item.user.id
-      redirect_to action: :index
-    end
-  end
 
   def find_item
     @item = Item.find(params[:id])
@@ -62,14 +56,15 @@ class ItemsController < ApplicationController
   private
 
   def move_to_index
-    @item = Item.find(params[:id])
-    unless current_user.id == @item.user.id
+    unless current_user.id == @item.user.id || @item.purchase == nil
       redirect_to action: :index
     end
   end
+
 
   def item_params
     params.require(:item).permit(:category_id, :state_id, :burden_id, :prefecture_id, :ship_day_id, :name, :explanation, :price,
                                  :image).merge(user_id: current_user.id)
   end
 end
+
