@@ -8,6 +8,12 @@ RSpec.describe PurchaseShipping, type: :model do
       it 'すべての値が正しく入力されていれば保存できること' do
         expect(@purchase_shipping).to be_valid
       end
+
+      it '建物名が空でも保存できること' do
+        @purchase_shipping.building = nil
+        expect(@purchase_shipping).to be_valid
+      end
+
       it '郵便番号が空だと保存できないこと' do
         @purchase_shipping.postal = nil
         @purchase_shipping.valid?
@@ -24,6 +30,13 @@ RSpec.describe PurchaseShipping, type: :model do
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Prefecture can't be blank")
       end
+
+      it '都道府県が空だと保存できないこと' do
+        @purchase_shipping.prefecture_id = nil
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Prefecture can't be blank")
+      end
+
       it '市町村が空だと保存できないこと' do
         @purchase_shipping.city = nil
         @purchase_shipping.valid?
@@ -34,11 +47,7 @@ RSpec.describe PurchaseShipping, type: :model do
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Address can't be blank")
       end
-
-      it '建物名が空でも保存できること' do
-        @purchase_shipping.building = nil
-        expect(@purchase_shipping).to be_valid
-      end
+      
       it '電話番号が9桁もしくは10桁の数字でないと保存できないこと' do
         @purchase_shipping.phone_number = 1111
         @purchase_shipping.valid?
@@ -49,7 +58,11 @@ RSpec.describe PurchaseShipping, type: :model do
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Phone number is invalid.")
       end
-
+      it '電話番号が空だと保存できないこと' do
+        @purchase_shipping.phone_number = nil
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Phone number is invalid.")
+      end
 
     end
   end
