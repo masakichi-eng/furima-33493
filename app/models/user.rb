@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   with_options presence: true do
     validates :nickname
-    with_options format: { with: /\A[ぁ-ん一-龥々]+\z/, message: '漢字を入力してください' } do
+    with_options format: { with: /\A[ァ-ヶぁ-ん一-龥々]+\z/, message: '漢字を入力してください' } do
       validates :sei_kanji
       validates :mei_kanji
     end
