@@ -1,5 +1,7 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
+  has_many :comments
+  has_many :likes
   belongs_to :user
   has_one :purchase
 
@@ -27,4 +29,7 @@ class Item < ApplicationRecord
   validates :prefecture_id, numericality: { other_than: 0 }
 
   has_one_attached :image
+
+  
+
 end

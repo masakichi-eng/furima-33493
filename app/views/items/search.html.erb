@@ -1,0 +1,10 @@
+<%= form_with(url: search_items_path, local: true,method: :get, class:"search-form") do |form|%>
+    <%= form.text_field :keyword, placeholder: "商品を検索する", class:"input-box" %>
+    <%= form.submit "検索", class: "search-icon" %>
+<% end %> 
+
+<div class="contents row">
+  <% @items.each do |item| %>
+    <%= render partial: "item", locals: { item: item } %>
+  <% end %>
+</div>

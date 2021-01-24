@@ -8,6 +8,7 @@ class ItemsController < ApplicationController
  
   def index
     @items = Item.order("created_at DESC")
+
   end
 
   def new
@@ -15,7 +16,10 @@ class ItemsController < ApplicationController
   end
 
   def show
-    
+    @comment = Comment.new
+    @comments = @item.comments.includes(:user)
+    @like = Like.find_by(user_id: current_user.id, item_id: @item.id)
+    @likes_count = Like.where(item_id: @item.id).count
   end
 
   def edit
@@ -52,6 +56,9 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def search
+    @items = SearchItemsService.search(params[:keyword])
+  end
 
   private
 
